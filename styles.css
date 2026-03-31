@@ -13,8 +13,8 @@ Secondary Colors:
 - Pink:       #F16061
 
 Fonts:
-- Proxima Nova
-- Avenir
+- Montserrat (primary brand-aligned font)
+- Poppins (secondary)
 
 */
 
@@ -30,7 +30,16 @@ body {
     align-items: center;
     min-height: 100vh;
     background-color: #f0f0f0;
-    font-family: Arial, sans-serif;
+    font-family: 'Montserrat', 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    font-weight: 400;
+    letter-spacing: 0.3px;
+}
+
+.page-container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    min-height: 100vh;
 }
 
 .game-wrapper {
@@ -38,6 +47,68 @@ body {
     flex-direction: column;
     align-items: center;
     gap: 20px;
+    flex: 1;
+    padding: 20px;
+}
+
+/* Difficulty Selector Styles */
+.difficulty-selector {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    text-align: center;
+}
+
+.difficulty-label {
+    font-size: 18px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    margin-bottom: 12px;
+    color: #333;
+    font-family: 'Montserrat', 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+
+.difficulty-buttons {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    margin-bottom: 12px;
+}
+
+.difficulty-btn {
+    padding: 10px 24px;
+    background-color: #e0e0e0;
+    color: #333;
+    border: 2px solid #999;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 600;
+    font-family: 'Montserrat', 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    transition: all 0.3s ease;
+}
+
+.difficulty-btn:hover {
+    background-color: #d0d0d0;
+    border-color: #666;
+}
+
+.difficulty-btn[data-selected="true"] {
+    background-color: #2E9DF7;
+    color: white;
+    border-color: #1e7acc;
+}
+
+.difficulty-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.difficulty-info {
+    font-size: 14px;
+    color: #666;
+    margin: 0;
 }
 
 .score-panel {
@@ -54,7 +125,9 @@ body {
 .timer {
     flex: 0 1 auto;
     font-size: 24px;
-    font-weight: bold;
+    font-weight: 700;
+    letter-spacing: 0.3px;
+    font-family: 'Montserrat', 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
 }
 
 #game-container {
@@ -107,6 +180,9 @@ body {
     border-radius: 4px;
     cursor: pointer;
     font-size: 16px;
+    font-weight: 600;
+    font-family: 'Montserrat', 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    transition: background-color 0.3s ease;
 }
 
 #start-btn:hover {
@@ -119,9 +195,11 @@ body {
 }
 
 .score {
-    flex: 0 1 auto;  /* Don't grow, can shrink, auto basis */
+    flex: 0 1 auto;
     font-size: 24px;
-    font-weight: bold;
+    font-weight: 700;
+    letter-spacing: 0.3px;
+    font-family: 'Montserrat', 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
 }
 
 .water-drop {
@@ -173,19 +251,31 @@ body {
     font-size: 24px;
 }
 
+.feedback.win {
+    color: #fff;
+    background-color: #4CAF50;
+    font-size: 24px;
+}
+
 .game-title {
     color: #131313;
     font-size: 48px;
+    font-weight: 800;
+    letter-spacing: 1px;
     margin-top: 0;
-    margin-bottom: 5px;  /* reduced from 20px */
+    margin-bottom: 5px;
     text-align: center;
+    font-family: 'Montserrat', 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
 }
 
 .game-tagline {
     color: #666;
     font-size: 18px;
+    font-weight: 500;
+    letter-spacing: 0.5px;
     margin-bottom: 20px;
     text-align: center;
+    font-family: 'Montserrat', 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
 }
 
 @keyframes dropFall {
@@ -237,6 +327,39 @@ body {
     animation: confettiFall 3s ease-in forwards;
 }
 
+/* Charity: water Footer Styles */
+.charity-footer {
+    background-color: #2E9DF7;
+    color: white;
+    padding: 20px;
+    text-align: center;
+    margin-top: auto;
+    border-top: 3px solid #FFC907;
+    font-family: 'Montserrat', 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+
+.charity-footer p {
+    font-size: 16px;
+    margin: 0;
+    line-height: 1.6;
+}
+
+.charity-footer a {
+    color: #FFC907;
+    text-decoration: none;
+    font-weight: 700;
+    transition: color 0.3s ease, text-shadow 0.3s ease;
+}
+
+.charity-footer a:hover {
+    color: #fff;
+    text-shadow: 0 0 8px rgba(255, 201, 7, 0.5);
+}
+
+.charity-footer a:visited {
+    color: #FFD740;
+}
+
 @media (max-width: 850px) {
     .game-wrapper, .score-panel, #game-container {
         width: 95vw;
@@ -244,5 +367,17 @@ body {
     
     #game-container {
         height: 70vh;
+    }
+
+    .difficulty-buttons {
+        flex-direction: column;
+    }
+
+    .difficulty-btn {
+        width: 100%;
+    }
+
+    .charity-footer {
+        font-size: 14px;
     }
 }

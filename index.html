@@ -5,21 +5,41 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Water Drop Game</title>
     <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div class="game-wrapper">
-        <h1 class="game-title">Water Drop</h1>
-        <p class="game-tagline">Catch the good drops, avoid the bad ones!</p>
-        <div class="score-panel">
-            <div class="score">Score: <span id="score">0</span></div>
-            <div class="timer">Time: <span id="time">30</span>s</div>
-            <button id="start-btn">Start Game</button>
+    <div class="page-container">
+        <div class="game-wrapper">
+            <h1 class="game-title">Water Drop</h1>
+            <p class="game-tagline">Catch the good drops, avoid the bad ones!</p>
+            
+            <!-- Difficulty Mode Selection -->
+            <div class="difficulty-selector" id="difficulty-selector">
+                <p class="difficulty-label">Select Difficulty:</p>
+                <div class="difficulty-buttons">
+                    <button class="difficulty-btn" data-difficulty="easy">Easy</button>
+                    <button class="difficulty-btn" data-difficulty="normal" data-selected="true">Normal</button>
+                    <button class="difficulty-btn" data-difficulty="hard">Hard</button>
+                </div>
+                <p class="difficulty-info" id="difficulty-info">Normal: 30 seconds, reach 50 points to win</p>
+            </div>
+            
+            <div class="score-panel">
+                <div class="score">Score: <span id="score">0</span> / <span id="goal">50</span></div>
+                <div class="timer">Time: <span id="time">30</span>s</div>
+                <button id="start-btn">Start Game</button>
+            </div>
+            
+            <div id="game-container">
+                <div id="bucket"></div>
+                <div id="confetti-container"></div>
+            </div>
         </div>
         
-        <div id="game-container">
-            <div id="bucket"></div>
-            <div id="confetti-container"></div>
-        </div>
+        <!-- Footer with charity: water links -->
+        <footer class="charity-footer">
+            <p>Supporting clean water access worldwide | Learn more about <a href="https://www.charitywater.org/" target="_blank" rel="noopener noreferrer">charity: water</a> | <a href="https://www.charitywater.org/donate" target="_blank" rel="noopener noreferrer">Make a Donation</a></p>
+        </footer>
     </div>
     
     <script src="script.js"></script>

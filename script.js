@@ -1,8 +1,33 @@
+// Difficulty settings
+const difficultySettings = {
+  easy: {
+    timeLimit: 45,
+    pointGoal: 30,
+    dropInterval: 1200,
+    description: "Easy: 45 seconds, reach 30 points to win"
+  },
+  normal: {
+    timeLimit: 30,
+    pointGoal: 50,
+    dropInterval: 800,
+    description: "Normal: 30 seconds, reach 50 points to win"
+  },
+  hard: {
+    timeLimit: 20,
+    pointGoal: 80,
+    dropInterval: 500,
+    description: "Hard: 20 seconds, reach 80 points to win"
+  }
+};
+
+let currentDifficulty = 'normal';
+
 // Variables to control game state
 let gameRunning = false;
 let dropMaker;
 let score = 0;
 let timeLeft = 30;
+let pointGoal = 50;
 let timerInterval;
 
 // Bucket drag variables
@@ -13,6 +38,28 @@ let gameContainer = document.getElementById("game-container");
 
 // Bucket position
 let bucketX = gameContainer.offsetWidth / 2 - 60; // Center the bucket
+
+// Setup difficulty buttons
+document.querySelectorAll(".difficulty-btn").forEach(btn => {
+  btn.addEventListener("click", changeDifficulty);
+});
+
+function changeDifficulty(e) {
+  if (gameRunning) return;
+
+  const difficulty = e.target.dataset.difficulty;
+  currentDifficulty = difficulty;
+
+  // Update button selection
+  document.querySelectorAll(".difficulty-btn").forEach(btn => {
+    btn.removeAttribute("data-selected");
+  });
+  e.target.setAttribute("data-selected", "true");
+
+  // Update difficulty info
+  const settings = difficultySettings[difficulty];
+  document.getElementById("difficulty-info").textContent = settings.description;
+}
 
 // Wait for button click to start the game
 document.getElementById("start-btn").addEventListener("click", startGame);
@@ -78,15 +125,25 @@ function startGame() {
 
   gameRunning = true;
   score = 0;
-  timeLeft = 30;
+  
+  // Apply difficulty settings
+  const settings = difficultySettings[currentDifficulty];
+  timeLeft = settings.timeLimit;
+  pointGoal = settings.pointGoal;
+
+  // Disable difficulty buttons during game
+  document.querySelectorAll(".difficulty-btn").forEach(btn => {
+    btn.disabled = true;
+  });
 
   // Update UI
   document.getElementById("score").textContent = score;
+  document.getElementById("goal").textContent = pointGoal;
   document.getElementById("time").textContent = timeLeft;
   document.getElementById("start-btn").disabled = true;
 
-  // Create new drops every 800 milliseconds
-  dropMaker = setInterval(createDrop, 800);
+  // Create new drops at difficulty-specific interval
+  dropMaker = setInterval(createDrop, settings.dropInterval);
 
   // Start countdown timer
   timerInterval = setInterval(() => {
@@ -109,13 +166,24 @@ function endGame() {
   const drops = document.querySelectorAll(".water-drop, .bad-drop");
   drops.forEach(drop => drop.remove());
 
+  // Re-enable difficulty buttons
+  document.querySelectorAll(".difficulty-btn").forEach(btn => {
+    btn.disabled = false;
+  });
+
   // Create confetti effect
   createConfetti();
 
-  showFeedback(`Game Over! Final Score: ${score}`, "game-over");
+  // Check if player won
+  const didWin = score >= pointGoal;
+  const message = didWin 
+    ? `🎉 You Won! Final Score: ${score}/${pointGoal}` 
+    : `Game Over! Final Score: ${score}/${pointGoal}`;
+  
+  showFeedback(message, didWin ? "win" : "game-over");
 
   document.getElementById("start-btn").disabled = false;
-  document.getElementById("time").textContent = "30";
+  document.getElementById("time").textContent = difficultySettings[currentDifficulty].timeLimit;
 }
 
 function createDrop() {
