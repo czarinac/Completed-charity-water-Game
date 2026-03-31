@@ -1,0 +1,248 @@
+/* Charity: water Brand Colors & Fonts
+
+Primary Colors:
+- Yellow:     #FFC907
+- Blue:       #2E9DF7
+
+Secondary Colors:
+- Light Blue: #8BD1CB
+- Green:      #4FCB53
+- Orange:     #FF902A
+- Red:        #F5402C
+- Dark Green: #159A48
+- Pink:       #F16061
+
+Fonts:
+- Proxima Nova
+- Avenir
+
+*/
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #f0f0f0;
+    font-family: Arial, sans-serif;
+}
+
+.game-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
+.score-panel {
+    display: flex;
+    justify-content: space-between;  /* Space between score and button */
+    align-items: center;
+    width: 800px;
+    padding: 10px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.timer {
+    flex: 0 1 auto;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+#game-container {
+    width: 800px;
+    height: 600px;
+    background-color: #e6f7ff;
+    border: 2px solid #333;
+    border-radius: 8px;
+    position: relative;
+    overflow: hidden;
+    cursor: none;
+}
+
+#bucket {
+    position: absolute;
+    width: 120px;
+    height: 100px;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: linear-gradient(135deg, #FFC907 0%, #FFB700 100%);
+    border: 3px solid #333;
+    border-radius: 0 0 50px 50px;
+    cursor: grab;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2), inset 0 2px 4px rgba(255, 255, 255, 0.3);
+    user-select: none;
+}
+
+#bucket:active {
+    cursor: grabbing;
+}
+
+#bucket::after {
+    content: '';
+    position: absolute;
+    top: 8px;
+    left: 10px;
+    width: 100px;
+    height: 60px;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0) 100%);
+    border-radius: 0 0 30px 30px;
+}
+
+
+#start-btn {
+    padding: 8px 16px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+#start-btn:hover {
+    background-color: #45a049;
+}
+
+#start-btn:disabled {
+    background-color: #cccccc;
+    cursor: not-allowed;
+}
+
+.score {
+    flex: 0 1 auto;  /* Don't grow, can shrink, auto basis */
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.water-drop {
+    position: absolute;
+    width: 60px;
+    height: 60px;
+    background-color: #0099ff;
+    border-radius: 50%;
+    animation: dropFall linear forwards;
+    transform-origin: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.bad-drop {
+    position: absolute;
+    background-color: #ff4444;
+    border-radius: 50%;
+    animation: dropFall linear forwards;
+    transform-origin: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.feedback {
+    position: absolute;
+    font-size: 20px;
+    font-weight: bold;
+    padding: 10px 20px;
+    border-radius: 8px;
+    pointer-events: none;
+    animation: feedbackPop 2s ease-out forwards;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.feedback.success {
+    color: #fff;
+    background-color: #4CAF50;
+}
+
+.feedback.penalty {
+    color: #fff;
+    background-color: #ff6b6b;
+}
+
+.feedback.game-over {
+    color: #fff;
+    background-color: #333;
+    font-size: 24px;
+}
+
+.game-title {
+    color: #131313;
+    font-size: 48px;
+    margin-top: 0;
+    margin-bottom: 5px;  /* reduced from 20px */
+    text-align: center;
+}
+
+.game-tagline {
+    color: #666;
+    font-size: 18px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+@keyframes dropFall {
+    from {
+        transform: translateY(-20px);
+    }
+    to {
+        transform: translateY(600px);
+    }
+}
+
+@keyframes feedbackPop {
+    0% {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(0.5);
+    }
+    50% {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1.1);
+    }
+    100% {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(1);
+    }
+}
+
+@keyframes confettiFall {
+    to {
+        transform: translateY(600px) rotateZ(360deg);
+        opacity: 0;
+    }
+}
+
+#confetti-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    overflow: hidden;
+}
+
+.confetti {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    pointer-events: none;
+    animation: confettiFall 3s ease-in forwards;
+}
+
+@media (max-width: 850px) {
+    .game-wrapper, .score-panel, #game-container {
+        width: 95vw;
+    }
+    
+    #game-container {
+        height: 70vh;
+    }
+}
